@@ -1,6 +1,8 @@
 package com.javaex.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,20 +17,29 @@ public class PhoneService {
 	private PhoneDao pDao;
 	
 	public int personInsert(PersonVo pVo) {
-		int count = -1;
-		count = pDao.personInsert(pVo);
+		int count = pDao.personInsert(pVo);
+		return count;
+	}
+	
+	public int personInsert2(PersonVo pVo) {
+		Map<String, String> pMap = new HashMap<>();
+		pMap.put("name", pVo.getName());
+		pMap.put("hp", pVo.getHp());
+		pMap.put("company", pVo.getCompany());
+		
+		//int count = pDao.personInsert2(pMap);
+		int count = pDao.personInsert2(pMap);
+		
 		return count;
 	}
 	
 	public int personDelete(int personId) {
-		int count = -1;
-		count = pDao.personDelete(personId);
+		int count = pDao.personDelete(personId);
 		return count;
 	}
 	
 	public int personUpdate(PersonVo pVo) {
-		int count = -1;
-		count = pDao.personUpdate(pVo);
+		int count = pDao.personUpdate(pVo);
 		return count;
 	}
 	
@@ -40,5 +51,10 @@ public class PhoneService {
 	public PersonVo getPerson(int personId) {
 		PersonVo pVo = pDao.getPerson(personId);
 		return pVo;
+	}
+	
+	public Map<String, Object> getPerson2(int personId) {
+		Map<String, Object> pMap = pDao.getPerson2(personId);
+		return pMap;
 	}
 }

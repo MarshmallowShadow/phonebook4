@@ -1,6 +1,7 @@
 package com.javaex.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,12 @@ public class PhoneDao {
 	public int personInsert(PersonVo pVo) {
 		//System.out.println(pVo);
 		int count = sqlSession.insert("phonebook.personInsert", pVo);
+		return count;
+	}
+	
+	public int personInsert2(Map<String, String> pMap) {
+		//System.out.println(pMap.toString());
+		int count = sqlSession.insert("phonebook.personInsert2", pMap);
 		return count;
 	}
 	
@@ -45,5 +52,11 @@ public class PhoneDao {
 		PersonVo pVo = sqlSession.selectOne("phonebook.getPerson", personId);
 		//System.out.println(pVo);
 		return pVo;
+	}
+	
+	public Map<String, Object> getPerson2(int personId) {
+		Map<String, Object> pMap = sqlSession.selectOne("phonebook.getPerson2", personId);
+		//System.out.println(pVo);
+		return pMap;
 	}
 }

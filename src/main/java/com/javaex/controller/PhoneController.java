@@ -1,6 +1,7 @@
 package com.javaex.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -50,6 +51,17 @@ public class PhoneController {
 
 		return "redirect:/list";
 	}
+	
+	@RequestMapping(value = "/write2", method = { RequestMethod.GET, RequestMethod.POST })
+	public String write2(@ModelAttribute PersonVo pVo) { // Automatically adds Parameters to class (through set methods in Vo)
+		System.out.println("PhoneController>write");
+
+		System.out.println(pVo);
+
+		pService.personInsert2(pVo);
+
+		return "redirect:/list";
+	}
 
 	@RequestMapping(value = "/delete/{personId}", method = { RequestMethod.GET, RequestMethod.POST })
 	public String delete(@PathVariable("personId") int personId) {
@@ -67,6 +79,17 @@ public class PhoneController {
 		PersonVo pVo = pService.getPerson(personId);
 
 		model.addAttribute("pVo", pVo);
+
+		return "updateForm";
+	}
+	
+	@RequestMapping(value = "/updateForm2", method = { RequestMethod.GET, RequestMethod.POST })
+	public String updateForm2(Model model, @RequestParam("personId") int personId) {
+		System.out.println("PhoneController>updateForm");
+
+		Map<String, Object> pMap = pService.getPerson2(personId);
+
+		model.addAttribute("pMap", pMap);
 
 		return "updateForm";
 	}
